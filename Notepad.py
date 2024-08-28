@@ -8,6 +8,9 @@ class Notepad:
         self.window = tk.Tk()
         self.window.title("Untitled | Notepad")
 
+        # Custom icon
+        self.window.iconbitmap('Notepad-Icon.ico')
+
         # Define text area and display buttons above
         self.text_area = tk.Text(self.window)
         self.display_buttons()
@@ -19,7 +22,7 @@ class Notepad:
 
     # Clear the Notepad and then open a preexisting file
     def open_file(self):
-        file_path = filedialog.askopenfilename()
+        file_path = filedialog.askopenfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
         if file_path:
             with open(file_path, 'r') as file:
                 content = file.read()
@@ -28,9 +31,7 @@ class Notepad:
 
     # Create a file in the specified directory and insert all content to save a copy to your PC
     def save_file(self):
-        file_path = filedialog.asksaveasfilename(defaultextension=".txt",
-                                                 initialfile="Untitled",
-                                                 filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialfile="Untitled", filetypes=[("Text files", "*.txt")])
         if file_path:
             with open(file_path, 'w') as file:
                 content = self.text_area.get(1.0, tk.END)
@@ -42,11 +43,13 @@ class Notepad:
         button_frame = tk.Frame(self.window)
         button_frame.pack(fill='x')
 
-        new_button = tk.Button(button_frame, text='New', command=self.new_file)
+        new_button = tk.Button(button_frame, text='New', command=self.new_file, background='white', width=5)
         new_button.pack(side='left')
 
-        open_button = tk.Button(button_frame, text='Open', command=self.open_file)
+        open_button = tk.Button(button_frame, text='Open', command=self.open_file, background='white', width=5)
         open_button.pack(side='left')
 
-        save_button = tk.Button(button_frame, text='Save', command=self.save_file)
+        save_button = tk.Button(button_frame, text='Save', command=self.save_file, background='white', width=5)
         save_button.pack(side='left')
+
+
